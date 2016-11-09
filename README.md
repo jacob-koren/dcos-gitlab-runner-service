@@ -1,6 +1,6 @@
-# gitlab-ci-runner-marathon (DinD version)
+# dcos-gitlab-ci-service (DinD version)
 
-A customized Docker image for running scalable GitLab CI runners on DC/OS or vanilla Mesos via Marathon.
+A customized Docker image for running scalable GitLab CI runners on DC/OS (or vanilla Mesos) via Marathon.
 
 ## Configuration
 
