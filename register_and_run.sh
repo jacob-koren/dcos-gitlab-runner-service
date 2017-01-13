@@ -3,8 +3,14 @@
 set -eu
 
 # Ensure GITLAB_SERVICE_NAME (custom defined variable). We need this to discover the GitLab location
+if [ -z ${GITLAB_SERVICE_PROTOCOL+x} ]; then
+    echo "Need to set GITLAB_SERVICE_PROTOCOL to determine the external gitlab server protocol"
+    exit 1
+fi
+
+# Ensure GITLAB_SERVICE_NAME (custom defined variable). We need this to discover the GitLab location
 if [ -z ${GITLAB_SERVICE_NAME+x} ]; then
-    echo "Need to set GITLAB_SERVICE_NAME to the service name of GitLab (e.g. gitlab.marathon.mesos)"
+    echo "Need to set GITLAB_SERVICE_NAME to hostname of your external gitlab server"
     exit 1
 fi
 
@@ -34,7 +40,7 @@ export MESOS_DNS_SERVER=$(cat /etc/resolv.conf | grep nameserver | awk -F" " '{p
 
 # Set the CI_SERVER_URL by resolving the Mesos DNS service name endpoint.
 # Environment variable GITLAB_SERVICE_NAME must be defined in the Marathon app.json
-export CI_SERVER_URL=http://$(mesosdns-resolver --serviceName $GITLAB_SERVICE_NAME --server $MESOS_DNS_SERVER --portIndex 0)/ci
+export CI_SERVER_URL=$GITLAB_SERVICE_PROTOCOL://$GITLAB_SERVICE_NAME/ci
 
 # Derive the RUNNER_NAME from the MESOS_TASK_ID
 export RUNNER_NAME=${MESOS_TASK_ID}
