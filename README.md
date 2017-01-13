@@ -8,7 +8,8 @@ The GitLab runner can be configured by environment variables. For a complete ove
 
 The most important ones are:
 
-* `GITLAB_SERVICE_NAME`: The Mesos DNS service name, e.g. `gitlab.marathon.mesos`. This strongly depends on your setup, i.e. how you launched GitLab and how you configured Mesos DNS. **(mandatory)**
+* `GITLAB_SERVICE_PROTOCOL`: The protocol of you gitlab service. **(mandatory)**
+* `GITLAB_SERVICE_NAME`: The hostname of your gitlab service **(mandatory)**
 * `REGISTRATION_TOKEN`: The registration token tu use with the GitLab instance. See the [docs](https://docs.gitlab.com/ce/ci/runners/README.html) for details. **(mandatory)**
 * `RUNNER_EXECUTOR`: The type of the executor to use, e.g. `shell` or `docker`. See the [executor docs](https://github.com/ayufan/gitlab-ci-multi-runner/blob/master/docs/executors/README.md) for more details. **(mandatory)**
 * `RUNNER_CONCURRENT_BUILDS`: The number of concurrent builds this runner should be able to handel. Default is `1`.
